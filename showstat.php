@@ -1,44 +1,44 @@
 <?php
 /*=====================================================
-ShowStat - Вывод статистики производительности сайта (тестировался на 9.4 и 9.6)
+ShowStat - Р’С‹РІРѕРґ СЃС‚Р°С‚РёСЃС‚РёРєРё РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚Рё СЃР°Р№С‚Р° (С‚РµСЃС‚РёСЂРѕРІР°Р»СЃСЏ РЅР° 9.4 Рё 9.6)
 =======================================================
-Автор: ПафНутиЙ 
+РђРІС‚РѕСЂ: РџР°С„РќСѓС‚РёР™ 
 URL: http://pafnuty.name/
 ICQ: 817233 
 email: pafnuty10@gmail.com
 =======================================================
-Файл:  showstat.php
+Р¤Р°Р№Р»:  showstat.php
 -------------------------------------------------------
-Версия: 2.1 (15.08.2012)
+Р’РµСЂСЃРёСЏ: 2.1 (15.08.2012)
 =======================================================
 
-Для показа статистики в конец main.tpl перед </body> прописать строку: 
+Р”Р»СЏ РїРѕРєР°Р·Р° СЃС‚Р°С‚РёСЃС‚РёРєРё РІ РєРѕРЅРµС† main.tpl РїРµСЂРµРґ </body> РїСЂРѕРїРёСЃР°С‚СЊ СЃС‚СЂРѕРєСѓ: 
 {include file="engine/modules/showstat.php"}
 
 -------------------------------------------------------
-так же можно передавать параметр &size=XX где XX максимальный размер в килобайтах лог-файла (по умолчанию - 40Кб это около 100-140 строк).
+С‚Р°Рє Р¶Рµ РјРѕР¶РЅРѕ РїРµСЂРµРґР°РІР°С‚СЊ РїР°СЂР°РјРµС‚СЂ &size=XX РіРґРµ XX РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РІ РєРёР»РѕР±Р°Р№С‚Р°С… Р»РѕРі-С„Р°Р№Р»Р° (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - 40РљР± СЌС‚Рѕ РѕРєРѕР»Рѕ 100-140 СЃС‚СЂРѕРє).
 
 -----------------
-----ВНИМАНИЕ!---- используйте показ запросов на свой страх и риск (показ запросов всем подряд - не есть хорошо.)
+----Р’РќРРњРђРќРР•!---- РёСЃРїРѕР»СЊР·СѓР№С‚Рµ РїРѕРєР°Р· Р·Р°РїСЂРѕСЃРѕРІ РЅР° СЃРІРѕР№ СЃС‚СЂР°С… Рё СЂРёСЃРє (РїРѕРєР°Р· Р·Р°РїСЂРѕСЃРѕРІ РІСЃРµРј РїРѕРґСЂСЏРґ - РЅРµ РµСЃС‚СЊ С…РѕСЂРѕС€Рѕ.)
 -----------------
 
-Для мониторинга запросов к БД в файлах:
+Р”Р»СЏ РјРѕРЅРёС‚РѕСЂРёРЅРіР° Р·Р°РїСЂРѕСЃРѕРІ Рє Р‘Р” РІ С„Р°Р№Р»Р°С…:
 
 engine/classes/mysqli.class.php
 engine/classes/mysql.class.php
 
-раскомментировать строки:
+СЂР°СЃРєРѕРјРјРµРЅС‚РёСЂРѕРІР°С‚СЊ СЃС‚СЂРѕРєРё:
 ============================================================================================
 //			$this->query_list[] = array( 'time'  => ($this->get_real_time() - $time_before), 
 //										 'query' => $query,
 //										 'num'   => (count($this->query_list) + 1));
 ============================================================================================
-в строку подключения добавить &show_query=y
+РІ СЃС‚СЂРѕРєСѓ РїРѕРґРєР»СЋС‡РµРЅРёСЏ РґРѕР±Р°РІРёС‚СЊ &show_query=y
 
-получится вот такая строка {include file="engine/modules/showstat.php?&size=15&show_query=y"}
+РїРѕР»СѓС‡РёС‚СЃСЏ РІРѕС‚ С‚Р°РєР°СЏ СЃС‚СЂРѕРєР° {include file="engine/modules/showstat.php?&size=15&show_query=y"}
 
 -------------------------------------------------------
-в css файл добавить:
+РІ css С„Р°Р№Р» РґРѕР±Р°РІРёС‚СЊ:
 
 .showstat {
 	position: fixed;
@@ -79,7 +79,7 @@ if ($member_id['user_group'] == 1 OR $member_id['user_group'] == 2) {
 	global $config, $Timer, $db, $tpl;
 
 
-	$size = 40; //максимальный размер файла лога
+	$size = 40; //РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ С„Р°Р№Р»Р° Р»РѕРіР°
 
 	$statfile = ROOT_DIR . '/uploads/stat_log.html';
 	$dtime = date ('d.m.Y  H:i:s', $_TIME);
@@ -92,11 +92,11 @@ if ($member_id['user_group'] == 1 OR $member_id['user_group'] == 2) {
 		$total_time_query = $db->query_list;
 		if(is_array($total_time_query)){
 			for ($i = 0; $i < count($total_time_query); $i++) { 
-			$time_query .= "".$total_time_query[$i][time] > 0.01."" ? "<p><span style=\"color:red\">".round($total_time_query[$i][time],5)."</span> сек. - [".$total_time_query[$i][query]."]</p>" : "<p><span style=\"color:green\">".round($total_time_query[$i][time],5)."</span> сек. - [".$total_time_query[$i][query]."]</p>";}
+			$time_query .= "".$total_time_query[$i][time] > 0.01."" ? "<p><span style=\"color:red\">".round($total_time_query[$i][time],5)."</span> СЃРµРє. - [".$total_time_query[$i][query]."]</p>" : "<p><span style=\"color:green\">".round($total_time_query[$i][time],5)."</span> СЃРµРє. - [".$total_time_query[$i][query]."]</p>";}
 		}
 	}
 
-	if(function_exists( "memory_get_peak_usage" )) $mem_usg = round(memory_get_peak_usage()/(1024*1024),2)."Мб";
+	if(function_exists( "memory_get_peak_usage" )) $mem_usg = round(memory_get_peak_usage()/(1024*1024),2)."РњР±";
 
 
 	if (file_exists($statfile) && filesize($statfile) > $size*1024) {
@@ -105,18 +105,18 @@ if ($member_id['user_group'] == 1 OR $member_id['user_group'] == 2) {
 	if (!file_exists($statfile)) {
 		$cFile = fopen( $statfile, "wb" );
 		$firstText = "
-						<!DOCTYPE html><html lang='ru'><head><meta charset='windows-1251'><title>Лог статистики генерации страницы</title></head>
+						<!DOCTYPE html><html lang='ru'><head><meta charset='windows-1251'><title>Р›РѕРі СЃС‚Р°С‚РёСЃС‚РёРєРё РіРµРЅРµСЂР°С†РёРё СЃС‚СЂР°РЅРёС†С‹</title></head>
 						<style>.stattable{margin: 50px auto;border-collapse:collapse;border:solid 1px #ccc;font:normal 14px Arial,Helvetica,sans-serif;}.stattable th, .stattable td{font-size:12px;border:solid 1px #ccc; padding: 5px;}.stattable tr:hover {background: #f0f0f0; color: #1d1d1d;} b{color:#c00;}p{margin:0 -5px -6px;padding:11px 10px 5px;border-bottom:solid 1px #eee;}</style>
 						<body>
 						<table width='800' class='stattable'>
 						<tr>
-							<th scope='col' width='300'>Адрес страницы и запросы в БД (опционально)</th>
-							<th scope='col'>Дата</th>
-							<th scope='col'>Вемя выполнения скрипта</th>
-							<th scope='col'>Время создания шаблона</th>
-							<th scope='col'>Кол-во запросов</th>
-							<th scope='col'>Время выполнения запросов</th>
-							<th scope='col'>Затраты памяти</th>
+							<th scope='col' width='300'>РђРґСЂРµСЃ СЃС‚СЂР°РЅРёС†С‹ Рё Р·Р°РїСЂРѕСЃС‹ РІ Р‘Р” (РѕРїС†РёРѕРЅР°Р»СЊРЅРѕ)</th>
+							<th scope='col'>Р”Р°С‚Р°</th>
+							<th scope='col'>Р’РµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ СЃРєСЂРёРїС‚Р°</th>
+							<th scope='col'>Р’СЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ С€Р°Р±Р»РѕРЅР°</th>
+							<th scope='col'>РљРѕР»-РІРѕ Р·Р°РїСЂРѕСЃРѕРІ</th>
+							<th scope='col'>Р’СЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ Р·Р°РїСЂРѕСЃРѕРІ</th>
+							<th scope='col'>Р—Р°С‚СЂР°С‚С‹ РїР°РјСЏС‚Рё</th>
 						</tr>
 						\r\n</table></body></html>";
 		fwrite( $cFile, $firstText);
@@ -127,14 +127,14 @@ if ($member_id['user_group'] == 1 OR $member_id['user_group'] == 2) {
 		$lastLine = array_pop($cFileArr);
 		$newText = implode("", $cFileArr);
 
-		$newTextAdd = "добавляем строку\r\n";
+		$newTextAdd = "РґРѕР±Р°РІР»СЏРµРј СЃС‚СЂРѕРєСѓ\r\n";
 		$newTextAdd = "	<tr>
-							<td><a href='http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']."' title='Перейти на страницу' target='_blank'>".$_SERVER['REQUEST_URI']."</a> <br />".$time_query."</td>
+							<td><a href='http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']."' title='РџРµСЂРµР№С‚Рё РЅР° СЃС‚СЂР°РЅРёС†Сѓ' target='_blank'>".$_SERVER['REQUEST_URI']."</a> <br />".$time_query."</td>
 							<td>$dtime</td>
-							<td><b>".$timer."с</b></td>
-							<td>".$tpl_time."с</td>
+							<td><b>".$timer."СЃ</b></td>
+							<td>".$tpl_time."СЃ</td>
 							<td>".$db_q."</td>
-							<td>".$mysql_time."с</td>
+							<td>".$mysql_time."СЃ</td>
 							<td>".$mem_usg."</td>
 						</tr>\r\n";
 
@@ -146,13 +146,13 @@ if ($member_id['user_group'] == 1 OR $member_id['user_group'] == 2) {
 
 	$showstat .= "<div class=\"showstat\">";
 	$showstat .= "
-		<p>Скрипт выполнен за: <b>".$timer."с</b></p>
-		<p>Шаблон создан за: <b>".$tpl_time."с</b></p>
-		<p>Запросы: <b>".$db_q."</b></p>
-		<p>Выполнены за: <b>".$mysql_time."с</b></p>";
-	if($mem_usg) $showstat .="<p> Расход оперативы <b>".$mem_usg."</b> </p>";
+		<p>РЎРєСЂРёРїС‚ РІС‹РїРѕР»РЅРµРЅ Р·Р°: <b>".$timer."СЃ</b></p>
+		<p>РЁР°Р±Р»РѕРЅ СЃРѕР·РґР°РЅ Р·Р°: <b>".$tpl_time."СЃ</b></p>
+		<p>Р—Р°РїСЂРѕСЃС‹: <b>".$db_q."</b></p>
+		<p>Р’С‹РїРѕР»РЅРµРЅС‹ Р·Р°: <b>".$mysql_time."СЃ</b></p>";
+	if($mem_usg) $showstat .="<p> Р Р°СЃС…РѕРґ РѕРїРµСЂР°С‚РёРІС‹ <b>".$mem_usg."</b> </p>";
 
-	$showstat .= "<p><a href='".$config['http_home_url']."uploads/stat_log.html' target='_blank' title='Лог удалится при достижении ".$size."Кб'>".fgets($statfile)."Посмотреть лог (".round(filesize($statfile)/1024,2)."Кб)</a></p>";
+	$showstat .= "<p><a href='".$config['http_home_url']."uploads/stat_log.html' target='_blank' title='Р›РѕРі СѓРґР°Р»РёС‚СЃСЏ РїСЂРё РґРѕСЃС‚РёР¶РµРЅРёРё ".$size."РљР±'>".fgets($statfile)."РџРѕСЃРјРѕС‚СЂРµС‚СЊ Р»РѕРі (".round(filesize($statfile)/1024,2)."РљР±)</a></p>";
 	$showstat .= "</div>";
 	echo $showstat;
 
