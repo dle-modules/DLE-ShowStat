@@ -9,7 +9,7 @@ email: pafnuty10@gmail.com
 =======================================================
 Файл:  showstat.php
 -------------------------------------------------------
-Версия: 2.3 (16.08.2012)
+Версия: 2.3 (18.08.2012)
 =======================================================
 */
 
@@ -129,7 +129,7 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 			});			
 			$('#clearbutton').click(function() {
 				$('#cache-info').html('В процессе ...');
-				$.get('/engine/ajax/adminfunction.php?action=clearcache', function( data ){
+				$.get('".$config['http_home_url']."engine/ajax/adminfunction.php?action=clearcache', function( data ){
 					$('#cache-info').html(data);
 				});
 				return false;
