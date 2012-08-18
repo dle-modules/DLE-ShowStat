@@ -9,7 +9,7 @@ email: pafnuty10@gmail.com
 =======================================================
 Файл:  showstat.php
 -------------------------------------------------------
-Версия: 2.3 (18.08.2012)
+Версия: 2.3 (19.08.2012)
 =======================================================
 */
 
@@ -21,8 +21,7 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 
 	global $config, $Timer, $db, $tpl;
 
-
-	$size = 40; //максимальный размер файла лога
+	if(!is_numeric($size)) $size = 40; //максимальный размер файла лога
 
 	$statfile = ROOT_DIR . '/uploads/stat_log.html';
 	$dtime = date ('d.m.Y  H:i:s', $_TIME);
@@ -49,20 +48,50 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 		if (!file_exists($statfile)) {
 			$cFile = fopen( $statfile, "wb" );
 			$firstText = "
-							<!DOCTYPE html><html lang='ru'><head><meta charset='".$config['charset']."'><title>Лог статистики генерации страницы</title>
-							<style>.stattable{margin: 50px;border-collapse:collapse;border:solid 1px #ccc;font:normal 14px Arial,Helvetica,sans-serif;}.stattable th, .stattable td{font-size:12px;border:solid 1px #ccc;padding:5px 8px;}.stattable th:first-child, .stattable td:first-child{width:80%;text-align:left;}.stattable td{text-align:right;}.stattable tr:hover {background: #f0f0f0; color: #1d1d1d;} b{color:#c00;}p{margin:0 -5px;padding:10px 5px;border-bottom:solid 1px #ddd;}p:last-child{margin-bottom:-6px;}p:hover{background:#fcfcfc;}a{display:inline-block;margin-bottom:5px;}</style></head>
-							<body>
-							<table class='stattable'>
-							<tr>
-								<th scope='col'>Адрес страницы и запросы в БД (опционально)</th>
-								<th scope='col'>Дата</th>
-								<th scope='col'>Вемя выполнения скрипта</th>
-								<th scope='col'>Время создания шаблона</th>
-								<th scope='col'>Кол-во запросов</th>
-								<th scope='col'>Время выполнения запросов</th>
-								<th scope='col'>Затраты памяти</th>
-							</tr>
-							\r\n</table></body></html>";
+<!DOCTYPE html>
+<html lang='ru'>
+<head>
+	<meta charset='".$config['charset']."'>
+	<title>Лог статистики генерации страницы</title>
+	<style>
+	a { display: inline-block; margin-bottom: 5px; }
+	b { color: #c00; }
+	p {
+		margin: 0 -5px;
+		padding: 10px 5px;
+		border-bottom: solid 1px #ddd;
+	}
+	p:hover { background: #fcfcfc; }
+
+	p:last-child { margin-bottom: -6px; }
+	.stattable {
+		margin: 50px;
+		border-collapse: collapse;
+		border: solid 1px #ccc;
+		font: normal 14px Arial,Helvetica,sans-serif;
+	}
+	.stattable td { text-align: right; }
+	.stattable th, .stattable td {
+		font-size: 12px;
+		border: solid 1px #ccc;
+		padding: 5px 8px;
+	}
+	.stattable th:first-child, .stattable td:first-child { width: 80%; text-align: left; }
+	.stattable tr:hover { background: #f0f0f0; color: #1d1d1d; }
+	</style>
+</head>
+<body>
+	<table class='stattable'>
+		<tr>
+			<th scope='col'>Адрес страницы и запросы в БД (опционально)</th>
+			<th scope='col'>Дата</th>
+			<th scope='col'>Вемя выполнения скрипта</th>
+			<th scope='col'>Время создания шаблона</th>
+			<th scope='col'>Кол-во запросов</th>
+			<th scope='col'>Время выполнения запросов</th>
+			<th scope='col'>Затраты памяти</th>
+		</tr>
+	\r\n</table></body></html>";
 			fwrite( $cFile, $firstText);
 			fclose( $cFile );
 
@@ -73,15 +102,15 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 
 			$newTextAdd = "добавляем строку\r\n";
 			$newTextAdd = "	
-							<tr>
-								<td><a href='http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']."' title='Перейти на страницу' target='_blank'>".$_SERVER['REQUEST_URI']."</a> <br />".$time_query."</td>
-								<td>$dtime</td>
-								<td><b>".$timer."с</b></td>
-								<td>".$tpl_time."с</td>
-								<td>".$db_q."</td>
-								<td>".$mysql_time."с</td>
-								<td>".$mem_usg."</td>
-							</tr>\r\n";
+		<tr>
+			<td><a href='http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']."' title='Перейти на страницу' target='_blank'>".$_SERVER['REQUEST_URI']."</a> <br />".$time_query."</td>
+			<td>$dtime</td>
+			<td><b>".$timer."с</b></td>
+			<td>".$tpl_time."с</td>
+			<td>".$db_q."</td>
+			<td>".$mysql_time."с</td>
+			<td>".$mem_usg."</td>
+		</tr>\r\n";
 
 			$cFile = fopen( $statfile, "w" );	
 
