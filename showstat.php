@@ -127,9 +127,13 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 	if (!$nolog) {
 		$showstat .= "<a id='log-link' href='".$config['http_home_url']."uploads/stat_log.html' target='_blank' title='Смотреть лог. Лимит ".$size."Кб,  сейчас: ".fgets($statfile).round(filesize($statfile)/1024,2)."Кб'></a>";
 	}
-	$showstat .= "
+	if ($member_id['user_group'] == 1) {
+		$showstat .= "
 		<i id='clearbutton' title='Очистить кеш'></i>
 		<i id='cache-info'></i>
+		";
+	}
+	$showstat .= "
 		<div class='base-stat'>
 		<p>Скрипт выполнен за: <b>".$timer."с</b></p>
 		<p>Шаблон создан за: <b>".$tpl_time."с</b></p>
@@ -155,14 +159,18 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 			});
 			$(document).keyup(function(e) {
 				if (e.keyCode == 27) { $('.base-stat, .queries').fadeOut(100); $('#queries-stat, #showstat-but').removeClass('active'); }
-			});			
+			});";			
+		if ($member_id['user_group'] == 1) {
+			$showstat .="
 			$('#clearbutton').click(function() {
 				$('#cache-info').html('В процессе ...');
 				$.get('".$config['http_home_url']."engine/ajax/adminfunction.php?action=clearcache', function( data ){
 					$('#cache-info').html(data);
 				});
 				return false;
-			});
+			});";
+		}
+	$showstat .="
 		});
 	</script>
 	";
