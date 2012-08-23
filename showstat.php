@@ -9,7 +9,7 @@ email: pafnuty10@gmail.com
 =======================================================
 Файл:  showstat.php
 -------------------------------------------------------
-Версия: 2.3 (19.08.2012)
+Версия: 2.4 (23.08.2012)
 =======================================================
 */
 
@@ -70,6 +70,9 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 		border: solid 1px #ccc;
 		font: normal 14px Arial,Helvetica,sans-serif;
 	}
+	.stattable th b {
+		cursor: help;	
+	}
 	.stattable td { text-align: right; }
 	.stattable th, .stattable td {
 		font-size: 12px;
@@ -79,17 +82,42 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 	.stattable th:first-child, .stattable td:first-child { width: 80%; text-align: left; }
 	.stattable tr:hover { background: #f0f0f0; color: #1d1d1d; }
 	</style>
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js'></script>
+	<script>
+		$.fn.getZnach = function(prop) {
+			var options = $.extend({
+				source: 'с',
+				ins: '',
+				quant: '5'
+			}, prop);
+
+			var summ=0;
+			this.each( function (i) {
+				summ+=+($(this).text().replace(/,/,'.').replace(options.source,''));			
+			});
+
+			$(options.ins).append('<br /><b title=\"Cреднее значение\">'+(summ/this.length).toFixed(options.quant)+options.source+'</b>');
+		}
+		//инициализация
+		jQuery(function($) {
+			$('td.timer').getZnach({ins:'th.timer'});
+			$('td.tpl_time').getZnach({ins:'th.tpl_time'});
+			$('td.db_q').getZnach({ins:'th.db_q', source: '', quant: '0'});
+			$('td.mysql_time').getZnach({ins:'th.mysql_time'});
+			$('td.mem_usg').getZnach({source: 'Мб', ins:'th.mem_usg', quant: '2'});
+		});
+	</script>
 </head>
 <body>
 	<table class='stattable'>
 		<tr>
-			<th scope='col'>Адрес страницы и запросы в БД (опционально)</th>
-			<th scope='col'>Дата</th>
-			<th scope='col'>Вемя выполнения скрипта</th>
-			<th scope='col'>Время создания шаблона</th>
-			<th scope='col'>Кол-во запросов</th>
-			<th scope='col'>Время выполнения запросов</th>
-			<th scope='col'>Затраты памяти</th>
+			<th scope='col' class='queries'>Адрес страницы и запросы в БД (опционально)</th>
+			<th scope='col' class='dtime'>Дата</th>
+			<th scope='col' class='timer'>Вемя выполнения скрипта</th>
+			<th scope='col' class='tpl_time'>Время создания шаблона</th>
+			<th scope='col' class='db_q'>Кол-во запросов</th>
+			<th scope='col' class='mysql_time'>Время выполнения запросов</th>
+			<th scope='col' class='mem_usg'>Затраты памяти</th>
 		</tr>
 	\r\n</table></body></html>";
 			fwrite( $cFile, $firstText);
@@ -103,13 +131,13 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 			$newTextAdd = "добавляем строку\r\n";
 			$newTextAdd = "	
 		<tr>
-			<td><a href='http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']."' title='Перейти на страницу' target='_blank'>".$_SERVER['REQUEST_URI']."</a> <br />".$time_query."</td>
-			<td>$dtime</td>
-			<td><b>".$timer."с</b></td>
-			<td>".$tpl_time."с</td>
-			<td>".$db_q."</td>
-			<td>".$mysql_time."с</td>
-			<td>".$mem_usg."</td>
+			<td class='queries'><a href='http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']."' title='Перейти на страницу' target='_blank'>".$_SERVER['REQUEST_URI']."</a> <br />".$time_query."</td>
+			<td class='dtime'>$dtime</td>
+			<td class='timer'><b>".$timer."с</b></td>
+			<td class='tpl_time'>".$tpl_time."с</td>
+			<td class='db_q'>".$db_q."</td>
+			<td class='mysql_time'>".$mysql_time."с</td>
+			<td class='mem_usg'>".$mem_usg."</td>
 		</tr>\r\n";
 
 			$cFile = fopen( $statfile, "w" );	
