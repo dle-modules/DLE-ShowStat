@@ -9,7 +9,7 @@ email: pafnuty10@gmail.com
 =======================================================
 Файл:  showstat.php
 -------------------------------------------------------
-Версия: 2.4 (23.08.2012)
+Версия: 2.5 (15.11.2012)
 =======================================================
 */
 
@@ -33,8 +33,12 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 	if ($show_query) {
 		$total_time_query = $db->query_list;
 		if(is_array($total_time_query)){
-			for ($i = 0; $i < count($total_time_query); $i++) { 
-			$time_query .= "".$total_time_query[$i][time] > 0.01."" ? "<p><span style='color:red'>".round($total_time_query[$i][time],5)."</span> сек. - [ ".htmlspecialchars($total_time_query[$i][query])." ]</p>" : "<p><span style='color:green'>".round($total_time_query[$i][time],5)."</span> сек. - [ ".htmlspecialchars($total_time_query[$i][query])." ]</p>";}
+			for ($i = 0; $i < count($total_time_query); $i++) 
+			{ 
+			$color = ($total_time_query[$i][time] > 0.01) ? 'red' : 'green';
+			$rounted_time = sprintf("%.8f", $total_time_query[$i][time]);
+			$time_query .= "<p><span style='color:".$color."'>".$rounted_time."</span> сек. - [ ".htmlspecialchars($total_time_query[$i][query])." ]</p>";
+			}
 		}
 	}
 
