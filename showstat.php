@@ -9,12 +9,12 @@ email: pafnuty10@gmail.com
 =======================================================
 Файл:  showstat.php
 -------------------------------------------------------
-Версия: 2.5 (15.11.2012)
+Версия: 2.6 (17.06.2013)
 =======================================================
 */
 
-if( ! defined( 'DATALIFEENGINE' ) ) {
-	die( '<iframe width="853" height="480" style="margin: 50px;" src="http://www.youtube.com/embed/mTQLW3FNy-g" frameborder="0" allowfullscreen></iframe>' );
+if(! defined('DATALIFEENGINE')) {
+	die('Fucking attempt');
 }
 
 if ($user_group[$member_id['user_group']]['allow_admin']) {
@@ -25,7 +25,7 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 
 	$statfile = ROOT_DIR . '/uploads/stat_log.html';
 	$dtime = date ('d.m.Y  H:i:s', $_TIME);
-	$timer = $Timer->stop();
+	$timer = ($config['version_id']>= '10.0') ? $Timer->get() : $Timer->stop();
 	$tpl_time = round($tpl->template_parse_time, 5);
 	$db_q = $db->query_num;
 	$mysql_time = round($db->MySQL_time_taken, 5);
@@ -42,7 +42,7 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 		}
 	}
 
-	if(function_exists( "memory_get_peak_usage" )) $mem_usg = round(memory_get_peak_usage()/(1024*1024),2)."Мб";
+	if(function_exists("memory_get_peak_usage")) $mem_usg = round(memory_get_peak_usage()/(1024*1024),2)."Мб";
 
 
 	if ((file_exists($statfile) && filesize($statfile) > $size*1024) OR $nolog) {
@@ -50,7 +50,7 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 	}
 	if (!$nolog) {
 		if (!file_exists($statfile)) {
-			$cFile = fopen( $statfile, "wb" );
+			$cFile = fopen($statfile, "wb");
 			$firstText = "
 <!DOCTYPE html>
 <html lang='ru'>
@@ -96,7 +96,7 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 			}, prop);
 
 			var summ=0;
-			this.each( function (i) {
+			this.each(function (i) {
 				summ+=+($(this).text().replace(/,/,'.').replace(options.source,''));			
 			});
 
@@ -124,8 +124,8 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 			<th scope='col' class='mem_usg'>Затраты памяти</th>
 		</tr>
 	\r\n</table></body></html>";
-			fwrite( $cFile, $firstText);
-			fclose( $cFile );
+			fwrite($cFile, $firstText);
+			fclose($cFile);
 
 		} else {
 			$cFileArr = file($statfile);
@@ -144,10 +144,10 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 			<td class='mem_usg'>".$mem_usg."</td>
 		</tr>\r\n";
 
-			$cFile = fopen( $statfile, "w" );	
+			$cFile = fopen($statfile, "w");	
 
-			fwrite( $cFile, $newText.$newTextAdd.$lastLine);
-			fclose( $cFile );
+			fwrite($cFile, $newText.$newTextAdd.$lastLine);
+			fclose($cFile);
 		}
 	}
 
@@ -196,7 +196,7 @@ if ($user_group[$member_id['user_group']]['allow_admin']) {
 			$showstat .="
 			$('#clearbutton').click(function() {
 				$('#cache-info').html('В процессе ...');
-				$.get('".$config['http_home_url']."engine/ajax/adminfunction.php?action=clearcache', function( data ){
+				$.get('".$config['http_home_url']."engine/ajax/adminfunction.php?action=clearcache', function(data){
 					$('#cache-info').html(data);
 				});
 				return false;
