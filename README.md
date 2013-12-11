@@ -15,3 +15,7 @@ ShowStat - Модуль показа статистики нагрузки дл�
 
 Более подробная информация на сайте http://pafnuty.name/
 Инструкция по установке в файле how_to_install.txt
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pafnuty/showstat/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
